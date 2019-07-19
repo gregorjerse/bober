@@ -48,17 +48,17 @@ WORKDIR /home/bober
 # RUN git clone --depth 1 -b ${BOBER_GIT_BRANCH} ${BOBER_GIT_LOCATION}
 
 # Copy the current source code inside docker container
-COPY --chown=bober:bober . bober/
+COPY --chown=bober:bober .django/bober bober/
 RUN ls /home/bober
 RUN ls /home/bober/bober
 RUN pwd
 RUN ls .
 
 # Install dependencies
-RUN pip3 install -r bober/requirements-docker.txt
+RUN pip3 install -r requirements-docker.txt
 
 # Compile translations
-RUN python3 bober/manage.py compilemessages --settings=bober.settings-docker
+RUN manage.py compilemessages --settings=bober.settings-docker
 
 RUN chown bober.bober -R /home/bober
 
